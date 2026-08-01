@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import appIcon from "../assets/appicon.png";
 
 const styles = {
   page: {
@@ -192,7 +193,7 @@ export default function Login() {
 
       <div style={styles.wrapper}>
         <div style={styles.header}>
-          <img src="/src/assets/appicon.png" alt="Logo" style={styles.logo} />
+        <img src={appIcon} alt="Logo" style={styles.logo} />
           <h1 style={styles.title}>Project Restart</h1>
           <p style={styles.subtitle}>Restart Yourself. One Day at a Time.</p>
         </div>

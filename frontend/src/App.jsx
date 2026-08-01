@@ -80,14 +80,14 @@ function AppRoutes() {
 }
 
 export default function App() {
+  console.log("App Loaded");
   return (
     <Router>
       <AuthProvider>
-        <PageErrorBoundary>
           <Suspense fallback={<div style={loadingStyle}><div style={loadingIconStyle}>Loading...</div></div>}>
             <AppRoutes />
           </Suspense>
-        </PageErrorBoundary>
+        
       </AuthProvider>
     </Router>
   );
