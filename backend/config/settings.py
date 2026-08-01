@@ -1,9 +1,14 @@
 from pathlib import Path
 from datetime import timedelta
+
 from decouple import config
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# ==========================================================
+# SECURITY
+# ==========================================================
 
 SECRET_KEY = config("SECRET_KEY")
 
@@ -11,8 +16,17 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
-    default="localhost,127.0.0.1,project-restart-gzin.onrender.com"
+    default="localhost,127.0.0.1,.onrender.com"
 ).split(",")
+
+CSRF_TRUSTED_ORIGINS = config(
+    "CSRF_TRUSTED_ORIGINS",
+    default="https://*.onrender.com"
+).split(",")
+
+# ==========================================================
+# APPS
+# ==========================================================
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -22,9 +36,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
+    "corsheaders",
+
     "rest_framework",
     "rest_framework_simplejwt",
-    "corsheaders",
 
     "accounts",
     "dashboard",
@@ -41,6 +56,10 @@ INSTALLED_APPS = [
     "ai_assistant",
 ]
 
+# ==========================================================
+# MIDDLEWARE
+# ==========================================================
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -56,6 +75,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "config.urls"
+
+# ==========================================================
+# TEMPLATES
+# ==========================================================
 
 TEMPLATES = [
     {
@@ -74,13 +97,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+# ==========================================================
+# DATABASE
+# ==========================================================
+
 DATABASES = {
     "default": dj_database_url.config(
-        default=config("DATABASE_URL")
+        default=config("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True,
     )
 }
 
+# ==========================================================
+# USER MODEL
+# ==========================================================
+
 AUTH_USER_MODEL = "accounts.User"
+
+# ==========================================================
+# REST FRAMEWORK
+# ==========================================================
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -96,12 +133,20 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
+# ==========================================================
+# CORS
+# ==========================================================
+
 CORS_ALLOWED_ORIGINS = config(
     "CORS_ALLOWED_ORIGINS",
     default="http://localhost:5173"
 ).split(",")
 
 CORS_ALLOW_CREDENTIALS = True
+
+# ==========================================================
+# LANGUAGE
+# ==========================================================
 
 LANGUAGE_CODE = "en-us"
 
@@ -111,16 +156,30 @@ USE_I18N = True
 
 USE_TZ = True
 
+# ==========================================================
+# STATIC FILES
+# ==========================================================
+
 STATIC_URL = "/static/"
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STATICFILES_STORAGE = (
     "whitenoise.storage.CompressedManifestStaticFilesStorage"
 )
 
+# ==========================================================
+# MEDIA FILES
+# ==========================================================
+
 MEDIA_URL = "/media/"
+
 MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# ==========================================================
+# RENDER
+# ==========================================================
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
