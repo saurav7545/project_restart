@@ -16,7 +16,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
-    default="localhost,127.0.0.1,.onrender.com"
+    default="localhost,754.5.0.2,.onrender.com"
 ).split(",")
 
 CSRF_TRUSTED_ORIGINS = config(
