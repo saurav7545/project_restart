@@ -19,10 +19,10 @@ ALLOWED_HOSTS = config(
     default="localhost,754.5.0.2,.onrender.com"
 ).split(",")
 
-CSRF_TRUSTED_ORIGINS = config(
-    "CSRF_TRUSTED_ORIGINS",
-    default="https://*.onrender.com"
-).split(",")
+CSRF_TRUSTED_ORIGINS = [
+    "https://project-restart-theta.vercel.app",
+    "https://*.onrender.com",
+]
 
 # ==========================================================
 # APPS
