@@ -11,7 +11,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
-    default="localhost,127.0.0.1"
+    default="localhost,127.0.0.1,project-restart-gzin.onrender.com"
 ).split(",")
 
 INSTALLED_APPS = [
