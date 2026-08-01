@@ -16,7 +16,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
-    default="localhost,754.5.0.2,.onrender.com"
+    default="localhost,754.5.0.2,.onrender.com, .vercel.app"
 ).split(",")
 
 CSRF_TRUSTED_ORIGINS = config(
