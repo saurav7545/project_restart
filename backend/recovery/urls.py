@@ -1,0 +1,14 @@
+"""
+Recovery URLs
+"""
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from . import views
+
+router = DefaultRouter()
+router.register(r'logs', views.RecoveryLogViewSet, basename='recovery-logs')
+router.register(r'milestones', views.RecoveryMilestoneViewSet, basename='recovery-milestones')
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
