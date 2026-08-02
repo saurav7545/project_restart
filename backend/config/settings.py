@@ -133,10 +133,19 @@ SIMPLE_JWT = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://project-restart-theta.vercel.app",
+     "https://restartlife.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
+]
+
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+]
 
 # ==========================================================
 # LANGUAGE
