@@ -1,4 +1,4 @@
-name: Android APK Build
+name: Build Android APK
 
 on:
   workflow_dispatch:
@@ -7,20 +7,44 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: frontend
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
 
-      - run: npm install
-        working-directory: frontend
+      - name: Install Dependencies
+        run: npm install
 
-      - run: npm run build
-        working-directory: frontend
+      - name: Build React App
+        run: npm run build
 
-      - uses: actions/upload-artifact@v4
+      - name: Sync Capacitor
+        run: npx cap sync android
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          name: website-build
-          path: dist
+          distribution: temurin
+          java-version: 21
+
+      - name: Build APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: frontend/android/app/build/outputs/apk/debug/app-debug.apk
