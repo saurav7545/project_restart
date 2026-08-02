@@ -6,6 +6,7 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 # ==========================================================
 # SECURITY
 # ==========================================================
@@ -21,10 +22,14 @@ ALLOWED_HOSTS = [
     ".vercel.app",
 ]
 
+
 CSRF_TRUSTED_ORIGINS = [
+    "https://restartlife.vercel.app",
     "https://project-restart-theta.vercel.app",
     "https://*.onrender.com",
+    "https://localhost",
 ]
+
 
 # ==========================================================
 # APPS
@@ -58,6 +63,7 @@ INSTALLED_APPS = [
     "ai_assistant",
 ]
 
+
 # ==========================================================
 # MIDDLEWARE
 # ==========================================================
@@ -71,18 +77,23 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
 ROOT_URLCONF = "config.urls"
+
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [],
         "APP_DIRS": True,
+
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.request",
@@ -93,7 +104,9 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "config.wsgi.application"
+
 
 # ==========================================================
 # DATABASE
@@ -107,75 +120,124 @@ DATABASES = {
     )
 }
 
+
 AUTH_USER_MODEL = "accounts.User"
+
 
 # ==========================================================
 # REST FRAMEWORK
 # ==========================================================
 
 REST_FRAMEWORK = {
+
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.IsAuthenticated",
     ),
 }
 
+
+
 SIMPLE_JWT = {
+
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+
 }
+
+
 
 # ==========================================================
 # CORS
 # ==========================================================
 
 CORS_ALLOWED_ORIGINS = [
+
     "http://localhost:5173",
-     "https://restartlife.vercel.app",
+
+    "https://restartlife.vercel.app",
+
+    # Capacitor Android WebView
+    "https://localhost",
+
 ]
+
 
 CORS_ALLOW_CREDENTIALS = True
 
+
+
 CORS_ALLOWED_ORIGIN_REGEXES = [
+
     r"^https://.*\.vercel\.app$",
+
 ]
 
+
+
 CORS_ALLOW_HEADERS = [
+
     "authorization",
+
     "content-type",
+
+    "x-requested-with",
+
 ]
+
 
 # ==========================================================
 # LANGUAGE
 # ==========================================================
 
 LANGUAGE_CODE = "en-us"
+
 TIME_ZONE = "Asia/Kolkata"
+
 USE_I18N = True
+
 USE_TZ = True
+
+
 
 # ==========================================================
 # STATIC FILES
 # ==========================================================
 
 STATIC_URL = "/static/"
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+STATICFILES_STORAGE = (
+    "whitenoise.storage.CompressedManifestStaticFilesStorage"
+)
+
+
 
 # ==========================================================
 # MEDIA FILES
 # ==========================================================
 
 MEDIA_URL = "/media/"
+
 MEDIA_ROOT = BASE_DIR / "media"
 
+
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
 
 # ==========================================================
 # RENDER
 # ==========================================================
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_PROXY_SSL_HEADER = (
+    "HTTP_X_FORWARDED_PROTO",
+    "https",
+)
