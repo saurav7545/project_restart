@@ -1,5 +1,8 @@
 {
   "appId": "com.liferestart.app",
   "appName": "Liferestart",
-  "webDir": "dist"
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
 }
