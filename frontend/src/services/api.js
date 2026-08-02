@@ -3,6 +3,8 @@ import axios from 'axios';
 // Use Vite's local proxy during web development, or a deployed HTTPS backend
 // in Android/iOS builds (set VITE_API_BASE_URL in the build environment).
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
+alert("API = "+ API_BASE_URL);
+console.log("API +", API_BASE_URL);
 
 const api = axios.create({
   baseURL: API_BASE_URL,
